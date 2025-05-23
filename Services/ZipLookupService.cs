@@ -10,11 +10,11 @@ namespace ZipCodeAppProject.Services
 {
 
 
-    public class ZipLookupService
+    public class ZipLookupService : IZipLookupService
     {
         private readonly HttpClient _client = new();
 
-        public async Task<ZipLookupResponse?> GetZipInformationAsync(String zipCode)
+        public async Task<ZipLookupResponse?> GetZipInformationAsync(string zipCode)
         {
             var url = $"https://api.zippopotam.us/us/{zipCode}";
 

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ZipCodeAppProject.Views.StartPage">
+    <ScrollView Margin="0, 50, 0, 0">
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+            <Image
+                Source="america_pixabay.png"
+                HeightRequest="185"
+                Aspect="AspectFit"
+                SemanticProperties.Description="dot net bot in a hovercraft number nine" />
+
+            <Label
+                Text="Zip Code Detail Application"
+                Style="{StaticResource Headline}"
+                SemanticProperties.HeadingLevel="Level1" />
+
+            <Label
+                Text="Please enter the 5 digit Zip Code you'd like to know about!"
+                Style="{StaticResource SubHeadline}"
+                SemanticProperties.HeadingLevel="Level2" />
+
+            <Entry Placeholder="ZIP Code"
+               Keyboard="Numeric"
+               MaxLength="5" />
+
+            <Label Text="Error Message HERE"
+               TextColor="Red"
+               IsVisible="false" />
+            
+            <Button
+                x:Name="CounterBtn"
+                Text="Submit" 
+                SemanticProperties.Hint="Counts the number of times you click"
+                Clicked="OnCounterClicked"
+                IsEnabled="true"
+                HorizontalOptions="Fill" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

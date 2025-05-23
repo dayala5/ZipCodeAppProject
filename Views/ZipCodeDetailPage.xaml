@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ZipCodeAppProject.Views.ZipCodeDetailPage"
+             Title="ZipCodeDetailPage"
+             xmlns:views="clr-namespace:ZipCodeAppProject.Views"
+             xmlns:models="clr-namespace:ZipCodeAppProject.Models"
+             x:DataType="views:ZipCodeDetailPage">
+    <VerticalStackLayout>
+        <Label 
+            Text="Place(s) associated with the Zip Code you inputted."
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Grid>
+        <CollectionView ItemsSource="{Binding dummyData}"
+                x:Name="MyCollectionView"
+                ItemsLayout="VerticalGrid"
+                EmptyView="No data to display"
+                Margin="0,20" 
+                WidthRequest="200"
+                VerticalOptions="Center"
+                HorizontalOptions="Center">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Place">
+                    <Grid Padding="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25" />
+                            <RowDefinition Height="25" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="100" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" 
+                           Text="State" 
+                           FontAttributes="Bold"
+                           LineBreakMode="TailTruncation" />
+                        <Label Grid.Column="1" 
+                           Text="{Binding State}" 
+                           FontAttributes="Bold"
+                           LineBreakMode="TailTruncation" />
+                        <Label Grid.Row="1"
+                           Grid.Column="0" 
+                           Text="City"
+                           LineBreakMode="TailTruncation"
+                           FontAttributes="Bold" />
+                        <Label Grid.Row="1"
+                           Grid.Column="1" 
+                           Text="{Binding PlaceName}"
+                           LineBreakMode="TailTruncation"
+                           FontAttributes="Bold"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        </Grid>
+        <Label 
+            Text="You can go back on the top left corner to search another Zip Code!"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+    </VerticalStackLayout>
+</ContentPage>
