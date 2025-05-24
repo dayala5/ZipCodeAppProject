@@ -37,8 +37,7 @@
             <Button
                 x:Name="SubmitZipCodeBtn"
                 Text="Submit" 
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnSubmitZipCodeBtnClicked"
+                Command="{Binding SubmitZipCodeCommand}"
                 IsEnabled="{Binding IsButtonEnabled}"
                 HorizontalOptions="Fill" />
         </VerticalStackLayout>

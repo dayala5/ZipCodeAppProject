@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input;
+using ZipCodeAppProject.Models;
+using ZipCodeAppProject.Services;
+using ZipCodeAppProject.Views;
 
 namespace ZipCodeAppProject.ViewModels
 {
@@ -21,6 +26,10 @@ namespace ZipCodeAppProject.ViewModels
         private bool _isErrorMessageVisible = false;
 
         private bool _isButtonEnabled = false;
+
+        private readonly IZipLookupService zipCodeService;
+
+        public IAsyncRelayCommand SubmitZipCodeCommand { get; }
         public string InputZipCode
         {
             get => _inputZipCode;
@@ -74,23 +83,43 @@ namespace ZipCodeAppProject.ViewModels
             }
         }
 
-        public StartPageViewModel()
+        public StartPageViewModel(IZipLookupService zipCodeService)
         {
-
+            this.zipCodeService = zipCodeService;
+            SubmitZipCodeCommand = new AsyncRelayCommand(SubmitZipCodeExecute);
         }
 
-        bool IsStringAllDigits(string input)
+        private async Task SubmitZipCodeExecute()
         {
-            foreach(char c in input)
+            if(string.IsNullOrEmpty(InputZipCode))
             {
-                if(!char.IsDigit(c))
-                {
-                    return false;
-                }
+                return;
             }
 
-            return true;
+            // Call the API
+
+            ZipLookupResponse? response = await zipCodeService.GetZipInformationAsync(InputZipCode);
+
+            //If the API returned an empty JSON object or in other words it's not a valid zip code
+            if(response == null)
+            {
+                ErrorMessage = "Could not find details about your Zip Code. Please make sure your Zip Code is valid.";
+                IsErrorMessageVisible = true;
+                IsButtonEnabled = false;
+                return;
+            }
+
+            Debug.WriteLine("HERE" + response);
+
+            //Navigate to second screen
+            var navigationParameter = new Dictionary<string, object>
+            {
+                { "ZipLookupResponse", response}
+            };
+            await Shell.Current.GoToAsync(nameof(ZipCodeDetailPage), navigationParameter);
         }
+
+        
 
         //Validate zip code based on conditions, update error messsage if necessary. If zip code is valid (5 digits) enable submit button.
         private void ValidateZipCode()
@@ -116,9 +145,21 @@ namespace ZipCodeAppProject.ViewModels
             else
             {
                 ErrorMessage = "";
-                IsErrorMessageVisible = true;
+                IsErrorMessageVisible = false;
                 IsButtonEnabled = true;
             }
+        }
+        bool IsStringAllDigits(string input)
+        {
+            foreach (char c in input)
+            {
+                if (!char.IsDigit(c))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
 

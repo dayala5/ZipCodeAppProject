@@ -2,17 +2,17 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ZipCodeAppProject.Views.ZipCodeDetailPage"
-             Title="ZipCodeDetailPage"
              xmlns:views="clr-namespace:ZipCodeAppProject.Views"
+             xmlns:viewmodels="clr-namespace:ZipCodeAppProject.ViewModels"
              xmlns:models="clr-namespace:ZipCodeAppProject.Models"
-             x:DataType="views:ZipCodeDetailPage">
+             x:DataType="viewmodels:ZipCodeDetailPageViewModel">
     <VerticalStackLayout>
         <Label 
             Text="Place(s) associated with the Zip Code you inputted."
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
         <Grid>
-        <CollectionView ItemsSource="{Binding dummyData}"
+        <CollectionView ItemsSource="{Binding DummyData}"
                 x:Name="MyCollectionView"
                 ItemsLayout="VerticalGrid"
                 EmptyView="No data to display"
