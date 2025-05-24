@@ -16,13 +16,12 @@
                 x:Name="MyCollectionView"
                 ItemsLayout="VerticalGrid"
                 EmptyView="No data to display"
-                Margin="0,20" 
-                WidthRequest="200"
+                Margin="0,20"
                 VerticalOptions="Center"
                 HorizontalOptions="Center">
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:Place">
-                    <Grid Padding="10">
+                <DataTemplate x:DataType="models:Place" >
+                    <Grid Padding="10" HorizontalOptions="Center">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="25" />
                             <RowDefinition Height="25" />
@@ -31,23 +30,20 @@
                             <ColumnDefinition Width="100" />
                             <ColumnDefinition Width="100" />
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" 
-                           Text="State" 
-                           FontAttributes="Bold"
-                           LineBreakMode="TailTruncation" />
+                        <Label Grid.Row="0"
+                           Grid.Column="0" 
+                           Text="State:" 
+                           FontAttributes="Bold" />
                         <Label Grid.Column="1" 
                            Text="{Binding State}" 
-                           FontAttributes="Bold"
-                           LineBreakMode="TailTruncation" />
+                           FontAttributes="Bold"/>
                         <Label Grid.Row="1"
                            Grid.Column="0" 
-                           Text="City"
-                           LineBreakMode="TailTruncation"
+                           Text="City:"
                            FontAttributes="Bold" />
                         <Label Grid.Row="1"
                            Grid.Column="1" 
                            Text="{Binding PlaceName}"
-                           LineBreakMode="TailTruncation"
                            FontAttributes="Bold"/>
                     </Grid>
                 </DataTemplate>

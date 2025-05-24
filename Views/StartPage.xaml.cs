@@ -1,28 +1,19 @@
 using System.Threading.Tasks;
 using ZipCodeAppProject.Services;
+using ZipCodeAppProject.ViewModels;
 
 namespace ZipCodeAppProject.Views;
 
 public partial class StartPage : ContentPage
 {
-
-    int count = 0;
 	public StartPage()
 	{
 		InitializeComponent();
+        BindingContext = new StartPageViewModel();
 	}
 
-    private async void OnCounterClicked(object sender, EventArgs e)
+    private async void OnSubmitZipCodeBtnClicked(object sender, EventArgs e)
     {
-        count++;
-
-        if (count == 1)
-            CounterBtn.Text = $"Clicked {count} time";
-        else
-            CounterBtn.Text = $"Clicked {count} times";
-
-        SemanticScreenReader.Announce(CounterBtn.Text);
-
         ZipLookupService test = new ZipLookupService();
 
         test.GetZipInformationAsync("85326");
