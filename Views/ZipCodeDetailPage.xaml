@@ -6,53 +6,70 @@
              xmlns:viewmodels="clr-namespace:ZipCodeAppProject.ViewModels"
              xmlns:models="clr-namespace:ZipCodeAppProject.Models"
              x:DataType="viewmodels:ZipCodeDetailPageViewModel">
-    <VerticalStackLayout>
-        <Label 
-            Text="Place(s) associated with the Zip Code you inputted."
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Grid>
-        <CollectionView ItemsSource="{Binding DummyData}"
-                x:Name="MyCollectionView"
-                ItemsLayout="VerticalGrid"
-                EmptyView="No data to display"
-                Margin="0,20"
-                VerticalOptions="Center"
-                HorizontalOptions="Center">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:Place" >
-                    <Grid Padding="10" HorizontalOptions="Center">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="25" />
-                            <RowDefinition Height="25" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100" />
-                            <ColumnDefinition Width="100" />
-                        </Grid.ColumnDefinitions>
-                        <Label Grid.Row="0"
-                           Grid.Column="0" 
-                           Text="State:" 
-                           FontAttributes="Bold" />
-                        <Label Grid.Column="1" 
-                           Text="{Binding State}" 
-                           FontAttributes="Bold"/>
-                        <Label Grid.Row="1"
-                           Grid.Column="0" 
-                           Text="City:"
-                           FontAttributes="Bold" />
-                        <Label Grid.Row="1"
-                           Grid.Column="1" 
-                           Text="{Binding PlaceName}"
-                           FontAttributes="Bold"/>
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-        </Grid>
-        <Label 
-            Text="You can go back on the top left corner to search another Zip Code!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout
+            Margin="10, 30"
+            Spacing="20">
+            <Image
+                Source="ok_check_symbol.png"
+                HeightRequest="185"
+                Aspect="AspectFit" />
+            <Label 
+                Text="Places associated with the Zip Code you inputted."
+                Style="{StaticResource Headline}"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" />
+            <Grid>
+                <CollectionView ItemsSource="{Binding DummyData}"
+                    x:Name="MyCollectionView"
+                    ItemsLayout="VerticalGrid"
+                    EmptyView="No data to display"
+                    Margin="0,10">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Place" >
+                            <Grid Padding="10" HorizontalOptions="Center">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50" />
+                                    <RowDefinition Height="50" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Row="0"
+                                    Grid.Column="0" 
+                                    Text="State:" 
+                                    FontAttributes="Bold"
+                                    FontSize="24"
+                                    TextColor="Blue"/>
+                                <Label Grid.Row="0"
+                                    Grid.Column="1" 
+                                    Text="{Binding State}" 
+                                    FontSize="24"
+                                    TextColor="Blue"
+                                    LineBreakMode="TailTruncation"/>
+                                <Label Grid.Row="1"
+                                    Grid.Column="0" 
+                                    Text="City:"
+                                    FontAttributes="Bold"
+                                    FontSize="24"
+                                    TextColor="Blue" />
+                                <Label Grid.Row="1"
+                                    Grid.Column="1" 
+                                    Text="{Binding PlaceName}"
+                                    FontSize="24"
+                                    TextColor="Blue"
+                                    LineBreakMode="TailTruncation"/>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+            <Label 
+                Text="You can go back on the top left corner to search for another Zip Code!"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center"
+                Style="{StaticResource SubHeadline}" />
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

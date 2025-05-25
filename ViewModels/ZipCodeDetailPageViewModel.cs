@@ -43,6 +43,33 @@ namespace ZipCodeAppProject.ViewModels
             OnPropertyChanged("ZipLookupResponse");
 
             DummyData = new ObservableCollection<Place>(ZipCodeDetails.Places);
+            /*
+            DummyData.Add(new Place
+            {
+                PlaceName = "Phoenixfdsfdsfdsfdssdfsdfsdfsdfsdfsdf123123123",
+                State = "Arizonafdsfsd",
+                StateAbbreviation = "AZ",
+                Latitude = "33.4484",
+                Longitude = "-112.0740"
+            });
+            
+            DummyData.Add(new Place
+            {
+                PlaceName = "Phoenix",
+                State = "Arizona",
+                StateAbbreviation = "AZ",
+                Latitude = "33.4484",
+                Longitude = "-112.0740"
+            });
+            DummyData.Add(new Place
+            {
+                PlaceName = "Phoenix",
+                State = "Arizona",
+                StateAbbreviation = "AZ",
+                Latitude = "33.4484",
+                Longitude = "-112.0740"
+            });
+            */
         }
 
         public void OnPropertyChanged([CallerMemberName] string name = "") =>
