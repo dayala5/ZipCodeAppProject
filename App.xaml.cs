@@ -9,7 +9,7 @@
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            //Set a width and a height for running on windows
+            //Set a width and a height for running on windows machines
             const int newHeight = 800;
             const int newWidth = 600;
 
@@ -20,7 +20,6 @@
             };
 
             return newWindow;
-            //return new Window(new AppShell());
         }
     }
 }

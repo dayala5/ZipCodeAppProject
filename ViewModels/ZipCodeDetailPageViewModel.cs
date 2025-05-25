@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using ZipCodeAppProject.Models;
 
 namespace ZipCodeAppProject.ViewModels
 {
-    internal class ZipCodeDetailPageViewModel : IQueryAttributable, INotifyPropertyChanged
+    public class ZipCodeDetailPageViewModel : IQueryAttributable, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
         private ZipLookupResponse? _zipCodeDetails;
-        private ObservableCollection<Place>? _dummyData;
+        private ObservableCollection<Place> _placesData = new ObservableCollection<Place>();
 
         public ZipLookupResponse? ZipCodeDetails
         {
@@ -27,24 +22,24 @@ namespace ZipCodeAppProject.ViewModels
             }
         }
 
-        public ObservableCollection<Place> DummyData
+        public ObservableCollection<Place> PlacesData
         {
-            get => _dummyData;
+            get => _placesData;
             set
             {
-                _dummyData = value;
+                _placesData = value;
                 OnPropertyChanged();
             }
         }
-
+        //Receive API response from StartPage and update properties accordingly
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             ZipCodeDetails = query["ZipLookupResponse"] as ZipLookupResponse;
-            OnPropertyChanged("ZipLookupResponse");
 
-            DummyData = new ObservableCollection<Place>(ZipCodeDetails.Places);
-            /*
-            DummyData.Add(new Place
+            PlacesData = new ObservableCollection<Place>(ZipCodeDetails?.Places ?? new List<Place>());
+
+            //Dummy Data below to create a longer list of places
+            PlacesData.Add(new Place
             {
                 PlaceName = "Phoenixfdsfdsfdsfdssdfsdfsdfsdfsdfsdf123123123",
                 State = "Arizonafdsfsd",
@@ -53,7 +48,7 @@ namespace ZipCodeAppProject.ViewModels
                 Longitude = "-112.0740"
             });
             
-            DummyData.Add(new Place
+            PlacesData.Add(new Place
             {
                 PlaceName = "Phoenix",
                 State = "Arizona",
@@ -61,7 +56,7 @@ namespace ZipCodeAppProject.ViewModels
                 Latitude = "33.4484",
                 Longitude = "-112.0740"
             });
-            DummyData.Add(new Place
+            PlacesData.Add(new Place
             {
                 PlaceName = "Phoenix",
                 State = "Arizona",
@@ -69,7 +64,7 @@ namespace ZipCodeAppProject.ViewModels
                 Latitude = "33.4484",
                 Longitude = "-112.0740"
             });
-            */
+            
         }
 
         public void OnPropertyChanged([CallerMemberName] string name = "") =>

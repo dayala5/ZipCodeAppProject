@@ -20,7 +20,7 @@
                 VerticalOptions="Center" 
                 HorizontalOptions="Center" />
             <Grid>
-                <CollectionView ItemsSource="{Binding DummyData}"
+                <CollectionView ItemsSource="{Binding PlacesData}"
                     x:Name="MyCollectionView"
                     ItemsLayout="VerticalGrid"
                     EmptyView="No data to display"

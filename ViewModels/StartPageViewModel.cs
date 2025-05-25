@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Reflection.Emit;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
 using ZipCodeAppProject.Models;
 using ZipCodeAppProject.Services;
@@ -15,7 +7,7 @@ using ZipCodeAppProject.Views;
 
 namespace ZipCodeAppProject.ViewModels
 {
-    internal class StartPageViewModel : INotifyPropertyChanged
+    public class StartPageViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -86,9 +78,12 @@ namespace ZipCodeAppProject.ViewModels
         public StartPageViewModel(IZipLookupService zipCodeService)
         {
             this.zipCodeService = zipCodeService;
+
+            //Assign command on submit button press
             SubmitZipCodeCommand = new AsyncRelayCommand(SubmitZipCodeExecute);
         }
 
+        //On submit button press
         private async Task SubmitZipCodeExecute()
         {
             if(string.IsNullOrEmpty(InputZipCode))
@@ -100,7 +95,7 @@ namespace ZipCodeAppProject.ViewModels
 
             ZipLookupResponse? response = await zipCodeService.GetZipInformationAsync(InputZipCode);
 
-            //If the API returned an empty JSON object or in other words it's not a valid zip code
+            //If the API returned an empty JSON object or in other words it's not a valid zip code according to the API (despite being 5 digits)
             if(response == null)
             {
                 ErrorMessage = "Could not find details about your Zip Code. Please make sure your Zip Code is valid.";
@@ -109,10 +104,8 @@ namespace ZipCodeAppProject.ViewModels
                 return;
             }
 
-            Debug.WriteLine("HERE" + response);
-
-            //Navigate to second screen
-            var navigationParameter = new Dictionary<string, object>
+            //Navigate to second screen and with API response as a parameter
+            var navigationParameter = new ShellNavigationQueryParameters
             {
                 { "ZipLookupResponse", response}
             };
@@ -121,7 +114,7 @@ namespace ZipCodeAppProject.ViewModels
 
         
 
-        //Validate zip code based on conditions, update error messsage if necessary. If zip code is valid (5 digits) enable submit button.
+        //Validate zip code input based on conditions, update error messsage if necessary. If zip code is valid (5 digits), enable submit button.
         private void ValidateZipCode()
         {
             if (string.IsNullOrEmpty(InputZipCode))
@@ -149,7 +142,7 @@ namespace ZipCodeAppProject.ViewModels
                 IsButtonEnabled = true;
             }
         }
-        bool IsStringAllDigits(string input)
+        private bool IsStringAllDigits(string input)
         {
             foreach (char c in input)
             {

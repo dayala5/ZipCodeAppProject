@@ -1,14 +1,12 @@
-using System.Threading.Tasks;
-using ZipCodeAppProject.Services;
 using ZipCodeAppProject.ViewModels;
 
 namespace ZipCodeAppProject.Views;
 
 public partial class StartPage : ContentPage
 {
-	public StartPage()
+	public StartPage(StartPageViewModel viewModel)
 	{
 		InitializeComponent();
-        BindingContext = new StartPageViewModel(new ZipLookupService());
+		BindingContext = viewModel;
 	}
 }

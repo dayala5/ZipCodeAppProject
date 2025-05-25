@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using ZipCodeAppProject.Models;
 
@@ -10,9 +8,9 @@ namespace ZipCodeAppProject.Services
 {
 
 
-    public class ZipLookupService : IZipLookupService
+    public class ZipLookupService(HttpClient client) : IZipLookupService
     {
-        private readonly HttpClient _client = new();
+        private readonly HttpClient _client = client;
 
         public async Task<ZipLookupResponse?> GetZipInformationAsync(string zipCode)
         {
@@ -25,24 +23,19 @@ namespace ZipCodeAppProject.Services
                 if (response.IsSuccessStatusCode)
                 {
                     var content = await response.Content.ReadAsStringAsync();
-                    System.Diagnostics.Debug.WriteLine(content);
-                    var result = JsonConvert.DeserializeObject<ZipLookupResponse>(content);
-                    System.Diagnostics.Debug.WriteLine(result);
-
-                    return result;
+                    return JsonConvert.DeserializeObject<ZipLookupResponse>(content);
                 }
-                else
+                else //API returns 404 not found if zip code isn't in its database
                 {
                     return null;
                 }
             }
             catch(HttpRequestException e)
             {
-                Console.WriteLine("API call was not successful: " + e.Message);
+                System.Diagnostics.Debug.WriteLine("API call was not successful: " + e.Message);
                 return null;
             }
 
-            
         }
 
     }
