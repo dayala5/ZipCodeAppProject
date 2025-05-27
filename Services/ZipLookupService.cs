@@ -14,6 +14,7 @@ namespace ZipCodeAppProject.Services
 
         public async Task<ZipLookupResponse?> GetZipInformationAsync(string zipCode)
         {
+            //Zippopotam API given in the project description
             var url = $"https://api.zippopotam.us/us/{zipCode}";
 
             try

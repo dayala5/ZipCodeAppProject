@@ -31,7 +31,7 @@ namespace ZipCodeAppProject.ViewModels
                 OnPropertyChanged();
             }
         }
-        //Receive API response from StartPage and update properties accordingly
+        //Receive API response from StartPage and update properties accordingly. Implementing IQueryAttributable is crucial to receive the parameters
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             ZipCodeDetails = query["ZipLookupResponse"] as ZipLookupResponse;
@@ -40,6 +40,7 @@ namespace ZipCodeAppProject.ViewModels
             
         }
 
+        //Notifies UI that a property's value has changed
         public void OnPropertyChanged([CallerMemberName] string name = "") =>
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }

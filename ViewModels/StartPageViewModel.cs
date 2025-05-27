@@ -95,7 +95,7 @@ namespace ZipCodeAppProject.ViewModels
 
             ZipLookupResponse? response = await zipCodeService.GetZipInformationAsync(InputZipCode);
 
-            //If the API returned an empty JSON object or in other words it's not a valid zip code according to the API (despite being 5 digits)
+            //If the API returned a 404 error or in other words it's not a valid zip code according to the API (despite being 5 digits)
             if(response == null)
             {
                 ErrorMessage = "Could not find details about your Zip Code. Please make sure your Zip Code is valid.";
@@ -142,6 +142,7 @@ namespace ZipCodeAppProject.ViewModels
                 IsButtonEnabled = true;
             }
         }
+        //Helper function to determine if the given input characters are all digits
         private bool IsStringAllDigits(string input)
         {
             foreach (char c in input)
@@ -155,7 +156,7 @@ namespace ZipCodeAppProject.ViewModels
             return true;
         }
 
-
+        //Notifies UI that a property's value has changed
         public void OnPropertyChanged([CallerMemberName] string name = "") =>
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }

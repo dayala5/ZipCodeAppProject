@@ -21,7 +21,7 @@ namespace ZipCodeAppProject
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
-            //DI
+            //Dependency Injection
 
             builder.Services.AddSingleton<HttpClient>();
             builder.Services.AddSingleton<IZipLookupService, ZipLookupService>();
