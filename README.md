@@ -62,7 +62,7 @@ However, I could not replicate a Zip Code that had multiple places in the United
 2. CommunityToolkit.Mvvm - Provides tools to implement the MVVM (Model-View-ViewModel) architecture.
 
 # Basic Design Document
-Linked here is a basic design document explaining the code architecture: (INSERT LINK HERE)
+I have attached a Word Document describing the basic design of this project and explaining the code architecture: [View the guide here](Basic%20Design%20Document.docx). You will likely have to download it.
 
 # Images used in the Application
 The images used in the application are hosted on Pixabay a website hosting free images.
